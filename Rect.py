@@ -13,6 +13,12 @@ class Rect:
         newRect.Width = width
         return newRect
 
+    def create_area(r, width, height):
+        newRect = r()
+        newRect.Height = height
+        newRect.Width = width
+        return newRect
+
     def set_loc(self, x, y):
         self.X = x
         self.Y = y
