@@ -33,6 +33,12 @@ class Rect:
         else:
             return False
 
+    def farX(self):
+        return self.X + self.Width - 1
+
+    def farY(self):
+        return self.Y + self.Height - 1
+
 if __name__ == '__main__':
     test = Rect.create_new(5, 6, 7, 8)
     test2 = Rect.create_new(1, 1, 1, 1)
