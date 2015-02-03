@@ -13,13 +13,6 @@ class Rect:
         newRect.Width = w
         return newRect
 
-    @classmethod
-    def create_area(r, h, w):
-        newRect = r()
-        newRect.Height = h
-        newRect.Width = w
-        return newRect
-
     def set_loc(self, x, y):
         self.X = x
         self.Y = y
@@ -42,7 +35,7 @@ class Rect:
 
 if __name__ == '__main__':
     test = Rect.create_new(5, 6, 7, 8)
-    test2 = Rect.create_area(1, 1)
+    test2 = Rect.create_new(1, 1, 1, 1)
     print(test.X)
     print(test.Y)
     print(test.Height)
