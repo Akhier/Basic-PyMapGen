@@ -1,8 +1,9 @@
-class Rect():
-    X = 0
-    Y = 0
-    Height = 0
-    Width = 0
+class Rect:
+    def __init__(self):
+        self.X = 0
+        self.Y = 0
+        self.Height = 0
+        self.Width = 0
     
     @classmethod
     def create_new(r, x, y, h, w):
@@ -34,6 +35,7 @@ class Rect():
 
 if __name__ == '__main__':
     test = Rect.create_new(5, 6, 7, 8)
+    test2 = Rect.create_new(1, 1, 1, 1)
     print(test.X)
     print(test.Y)
     print(test.Height)
