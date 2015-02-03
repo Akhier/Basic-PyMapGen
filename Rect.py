@@ -6,11 +6,11 @@ class Rect:
         self.Width = 0
     
     @classmethod
-    def create_new(r, x, y, h, w):
+    def create_new(r, x, y, width, height):
         newRect = r()
         newRect.set_loc(x,y)
-        newRect.Height = h
-        newRect.Width = w
+        newRect.Height = height
+        newRect.Width = width
         return newRect
 
     def set_loc(self, x, y):

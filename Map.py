@@ -1,9 +1,9 @@
 from Rect import Rect
 
 class Map:
-    def __init__(self, h, w):
-        self.Height = h
-        self.Width = w
+    def __init__(self, width, height):
+        self.Height = height
+        self.Width = width
         self._tiles = [[0 for y in range(self.Height)] for x in range(self.Width)]
 
     def set_tile(self, id, x, y):
@@ -33,6 +33,6 @@ if __name__ == '__main__':
     y2 = 3
     h = 4
     w = 5
-    test.set_area(3, Rect.create_new(x2, y2, h, w))
-    test.set_edge(4, Rect.create_new(x2, y2, h, w))
+    test.set_area(3, Rect.create_new(x2, y2, w, h))
+    test.set_edge(4, Rect.create_new(x2, y2, w, h))
     print (test._tiles)
