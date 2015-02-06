@@ -50,7 +50,7 @@ class Map_Gen:
             Room_Made = False
             BackTrack = 1
             BadRoom_Count = 1
-            previous_room = Rooms[Room_Count - 1]
+            previous_room = Rooms[Room_Count - BackTrack]
             Rooms.append(Rect())
             while not Room_Made:
                 direction = random.randint(0, 3)
