@@ -4,7 +4,7 @@ class Rect:
         self.Y = 0
         self.Height = 0
         self.Width = 0
-    
+
     @classmethod
     def create_new(r, x, y, width, height):
         newRect = r()

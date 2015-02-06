@@ -35,7 +35,7 @@ class Map_Gen:
         pTiles = Map(width, height)
         outputMap = Map(width, height)
         Rooms = []
-        
+
         #Starting Room Generation
         Rooms.append(Rect.create_new(self.startRoomX,
                                      self.startRoomY,
@@ -44,7 +44,7 @@ class Map_Gen:
         pTiles.set_edge(1,Rooms[Room_Count])
         outputMap.set_area(1, Rooms[Room_Count])
         Room_Count = Room_Count + 1
-        
+
         #Main Room Generation
         while Room_Count < self.maxRooms:
             Room_Made = False
@@ -113,7 +113,6 @@ class Map_Gen:
                     pTiles.set_edge(1, wall)
                     outputMap.set_area(1, Rooms[Room_Count])
                     outputMap.set_area(1, hallway)
-                    print('Room_Count=' + str(Room_Count))
                     Room_Made = True
                     Room_Count = Room_Count + 1
 
