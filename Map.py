@@ -13,8 +13,8 @@ class Map:
         return self._tiles[y][x]
 
     def set_area(self, id, r):
-        for y in  range(0, r.Height - 1):
-            for x in range(0, r.Width - 1):
+        for y in  range(r.Height):
+            for x in range(r.Width):
                 self.set_tile(id, r.X + x, r.Y + y)
 
     def set_edge(self, id, r):

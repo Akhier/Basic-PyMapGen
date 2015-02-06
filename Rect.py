@@ -13,6 +13,7 @@ class Rect:
         newRect.Width = width
         return newRect
 
+    @classmethod
     def create_area(r, width, height):
         newRect = r()
         newRect.Height = height
