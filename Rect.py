@@ -40,6 +40,12 @@ class Rect:
         else:
             return False
 
+    def is_inside(self, x, y):
+        if x >= self.X and x <= self.farX() and y >= self.Y and y <= self.farY():
+            return True
+        else:
+            return False
+
     def farX(self):
         return self.X + self.Width - 1
 

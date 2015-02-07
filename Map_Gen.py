@@ -1,6 +1,7 @@
 from Map import Map
 from Rect import Rect
 import random
+import png
 
 class Map_Gen:
     def __init__(self):
@@ -10,18 +11,65 @@ class Map_Gen:
         self.minWall = 3
         self.maxHall = 7
         self.minHall = 1
-        self.maxRooms = 600
+        self.maxRooms = 300
         self.startRoomX = 2
         self.startRoomY = 2
+        self.debug = False
+        self.ccR = 0
+        self.ccG = 255
+        self.ccB = 255
+        self.currentcolor = 0
+        self.currentpng = 0
 
     def reset(self):
         self.maxWall = 11
         self.minWall = 3
         self.maxHall = 7
         self.minHall = 1
-        self.maxRooms = 600
+        self.maxRooms = 300
         self.startRoomX = 2
         self.startRoomY = 2
+        self.debug = False
+        self.ccR = 0
+        self.ccG = 255
+        self.ccB = 255
+        self.currentcolor = 0
+
+    def color_change(self):
+        if self.currentcolor == 0:
+            if self.ccR != 0:
+                self.ccR = self.ccR - 15
+            else:
+                if self.ccB != 255:
+                    self.ccB = self.ccB + 15
+                    if self.ccB == 255:
+                        self.currentcolor = 1
+
+                else:
+                    self.currentcolor = 1
+
+        elif self.currentcolor == 1:
+            if self.ccG != 0:
+                self.ccG = self.ccG - 15
+            else:
+                if self.ccR != 255:
+                    self.ccR = self.ccR + 15
+                    if self.ccR == 255:
+                        self.currentcolor = 2
+                else:
+                    self.currentcolor = 2
+
+        elif self.currentcolor == 2:
+            if self.ccB != 0:
+                self.ccB = self.ccB - 15
+            else:
+                if self.ccG != 255:
+                    self.ccG = self.ccG + 15
+                    if self.ccG == 255:
+                        self.currentcolor = 0
+
+                else:
+                    self.currentcolor = 0
 
     def gen(self, seed, width, height):
         random.seed(seed)
@@ -43,9 +91,51 @@ class Map_Gen:
                                      random.randint(self.minWall, self.maxWall)))
         pTiles.set_edge(1,Rooms[Room_Count])
         outputMap.set_area(1, Rooms[Room_Count])
+        if self.debug:
+            with open('PNGoutput/' + format(self.currentpng, '04d') + '.png', 'wb') as f:
+                w = png.Writer(width, height, alpha=True)
+                templist = []
+                for y in range(height):
+                    innerlist = []
+                    for x in range(width):
+                        innerlist.append(0)
+                        innerlist.append(0)
+                        innerlist.append(0)
+                        innerlist.append(255)
+
+                    templist.append(innerlist)
+
+                w.write(f, templist)
+
+            self.currentpng = self.currentpng + 1
+            with open('PNGoutput/' + format(self.currentpng, '04d') + '.png', 'wb') as f:
+                w = png.Writer(width, height, alpha=True)
+                templist = []
+                for y in range(height):
+                    innerlist = []
+                    for x in range(width):
+                        if Rooms[Room_Count].is_inside(x, y):
+                            innerlist.append(self.ccR)
+                            innerlist.append(self.ccG)
+                            innerlist.append(self.ccB)
+                            innerlist.append(255)
+                        else:
+                            innerlist.append(0)
+                            innerlist.append(0)
+                            innerlist.append(0)
+                            innerlist.append(0)
+
+                    templist.append(innerlist)
+
+                w.write(f, templist)
+
+            self.color_change()
+            self.currentpng = self.currentpng + 1
+
         Room_Count = Room_Count + 1
 
         #Main Room Generation
+        self.maxRooms = 300
         while Room_Count < self.maxRooms:
             Room_Made = False
             BackTrack = 1
@@ -111,8 +201,57 @@ class Map_Gen:
                                            Rooms[Room_Count].Width + walldepth,
                                            Rooms[Room_Count].Height + walldepth)
                     pTiles.set_edge(1, wall)
+                    pTiles.set_edge(1, Rooms[Room_Count])
                     outputMap.set_area(1, Rooms[Room_Count])
                     outputMap.set_area(1, hallway)
+                    if self.debug:
+                        with open('PNGoutput/' + format(self.currentpng, '04d') + '.png', 'wb') as f:
+                            w = png.Writer(width, height, alpha=True)
+                            templist = []
+                            for y in range(height):
+                                innerlist = []
+                                for x in range(width):
+                                    if hallway.is_inside(x, y):
+                                        innerlist.append(self.ccR)
+                                        innerlist.append(self.ccG)
+                                        innerlist.append(self.ccB)
+                                        innerlist.append(255)
+                                    else:
+                                        innerlist.append(0)
+                                        innerlist.append(0)
+                                        innerlist.append(0)
+                                        innerlist.append(0)
+
+                                templist.append(innerlist)
+
+                            w.write(f, templist)
+
+                        self.color_change()
+                        self.currentpng = self.currentpng + 1
+                        with open('PNGoutput/' + format(self.currentpng, '04d') + '.png', 'wb') as f:
+                            w = png.Writer(width, height, alpha=True)
+                            templist = []
+                            for y in range(height):
+                                innerlist = []
+                                for x in range(width):
+                                    if Rooms[Room_Count].is_inside(x, y):
+                                        innerlist.append(self.ccR)
+                                        innerlist.append(self.ccG)
+                                        innerlist.append(self.ccB)
+                                        innerlist.append(255)
+                                    else:
+                                        innerlist.append(0)
+                                        innerlist.append(0)
+                                        innerlist.append(0)
+                                        innerlist.append(0)
+
+                                templist.append(innerlist)
+
+                            w.write(f, templist)
+
+                        self.color_change()
+                        self.currentpng = self.currentpng + 1
+
                     Room_Made = True
                     Room_Count = Room_Count + 1
 
@@ -130,6 +269,7 @@ class Map_Gen:
 
 if __name__ == '__main__':
     test = Map_Gen()
+    test.debug = True
     map = test.gen(222,75,75)
     with open('test.txt', 'w') as w:
         for y in range(map.Height):
